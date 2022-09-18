@@ -1,4 +1,7 @@
 from django.shortcuts import render, redirect
+from .models import Listing, Photo
+import uuid
+import boto3
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
@@ -10,6 +13,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 # Home
 def home(request):
     return render(request, 'home.html')
+
+# About
+def about(request):
+    return render(request, 'about.html')
 
 # add following to bottom of CreateListing class
 # def form_valid(self, form):
@@ -32,10 +39,8 @@ def signup(request):
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
 
-# for ks later
-# @login_required
-# def listings_index(request):
-#   listings = Listing.objects.filter(user=request.user)
-#   # You could also retrieve the logged in user's cats like this
-#   # cats = request.user.cat_set.all()
-#   return render(request, 'listings/index.html', { 'listings': listings })
+@login_required
+def listings_index(request):
+  listings = Listing.objects.all()
+  return render(request, 'listings/index.html', { 'listings': listings })
+  

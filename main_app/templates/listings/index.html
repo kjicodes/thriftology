@@ -3,5 +3,19 @@
 
 <h1>Listings</h1>
 
+{% for listing in listings %}
+  <a href="">
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title">{{ listing.title }}</span>
+            <p>Insert Image Here</p>
+            <p>Gender: {{ listing.gender }}</p>
+            <p>Size: {{ listing.size }}</p>
+            <p>Price: {{ listing.price }}</p>
+        </div>
+    </div>
+  </a>
+{% endfor %}
+
 
 {% endblock %}
