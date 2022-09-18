@@ -3,13 +3,21 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 
 # Create your models here.
-
+SIZES= (
+    ('S', 'Small'),
+    ('M', 'Medium'),
+    ('L' 'Large'),
+    ('XL' 'X-Large')
+ )
 
 class Listing(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField(max_length=300)
-    price = models.IntegerField()
-    size = models.CharField(max_length=3)
+    price = models.FloatField()
+    size = models.CharField(
+        max_length=4,
+        choices=SIZES,
+        default=SIZES[0][0])
     condition = models.IntegerField()
     gender = models.CharField(max_length=1)
     isRental = models.BooleanField(default=False)
