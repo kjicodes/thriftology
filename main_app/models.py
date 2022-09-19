@@ -33,7 +33,7 @@ class Listing(models.Model):
         default=GENDER[0][0]
         )
     isRental = models.BooleanField(default=False)
-    date_sold = models.DateTimeField()
+    date_sold = models.DateTimeField(null=True, default=None)
     date_listed = models.DateTimeField(default=timezone.now)
     seller = models.ForeignKey(
         User, on_delete=models.CASCADE)
