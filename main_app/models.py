@@ -6,8 +6,8 @@ from django.contrib.auth.models import User
 SIZES= (
     ('S', 'Small'),
     ('M', 'Medium'),
-    ('L' 'Large'),
-    ('XL' 'X-Large')
+    ('L', 'Large'),
+    ('XL', 'X-Large')
  )
 
 class Listing(models.Model):
