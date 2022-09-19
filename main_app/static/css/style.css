@@ -2,13 +2,45 @@ body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
-  }
+    background-color: #FEF9EA;
+}
   
-  main {
+main {
     flex: 1 0 auto;
-  }
+    background-color: #FEF9EA;
+    margin: 0 20px;
+}
   
-  footer.page-footer {
+footer.page-footer {
     padding-top: 0;
     text-align: right;
-  }
+    background-color: #A49393;
+}
+
+nav {
+    background-color: #A49393;
+}
+
+div.filters-listings {
+  display: inline-flex;
+  margin: 15px;
+}
+
+div.card {
+  width: 250px;
+  margin: 5px;
+}
+
+div.filters {
+  text-align: left;
+  width: 150px
+}
+
+div.listing-grid {
+  display: inline-flex;
+  text-align: center;
+}
+
+div.center {
+  text-align: center;
+}
