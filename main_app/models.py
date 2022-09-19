@@ -9,12 +9,7 @@ SIZES = (
     ('M', 'Medium'),
     ('L', 'Large'),
     ('XL', 'X-Large')
-<<<<<<< HEAD
- )
-=======
 )
-
->>>>>>> c8c5bcb742bd51d81a7e77f2df31a4b055b51ce1
 
 class Listing(models.Model):
     title = models.CharField(max_length=100)
