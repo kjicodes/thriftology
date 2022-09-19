@@ -4,12 +4,13 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 
 # Create your models here.
-SIZES= (
+SIZES = (
     ('S', 'Small'),
     ('M', 'Medium'),
     ('L', 'Large'),
     ('XL', 'X-Large')
- )
+)
+
 
 class Listing(models.Model):
     title = models.CharField(max_length=100)
@@ -31,10 +32,11 @@ class Listing(models.Model):
         User, on_delete=models.DO_NOTHING, related_name='buyer', null=True, default=None)
 
     def __str__(self):
-        return self.name
+        return f"{self.title}  - seller:{self.seller} buyer:{self.buyer}"
 
     def get_absolute_url(self):
         return reverse('detail', kwargs={'listing_id': self.id})
+
 
 class Photo(models.Model):
     url = models.CharField(max_length=300)
