@@ -29,12 +29,12 @@ def about(request):
 
 
 class CreateListing(LoginRequiredMixin, CreateView):
-  model = Listing
-  fields = ['title', 'description', 'price', 'size', 'condition', 'gender']
-  
-  def form_valid(self, form):
-    form.instance.user = self.request.user
-    return super().form_valid(form)
+    model = Listing
+    fields = ['title', 'description', 'price', 'size', 'condition', 'gender']
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 
 def signup(request):
@@ -62,3 +62,30 @@ def listings_index(request):
 def mythrifts_home(request):
     user = request.user
     return render(request, 'mythrifts/index.html', {'user': user})
+
+
+@login_required
+def mythrifts_listings(request):
+    user = request.user
+    user_id = user.id
+    unsold = Listing.objects.all().filter(seller=user_id).filter(buyer=None)
+    print(f"user={user}, user id={user_id} listings = {unsold}")
+    return render(request, 'mythrifts/index.html', {'user': user, 'listings': unsold})
+
+
+@login_required
+def mythrifts_sold(request):
+    user = request.user
+    user_id = user.id
+    sold = Listing.objects.all().filter(seller=user_id).exclude(buyer=None)
+    print(f"user={user}, user id={user_id} listings = {sold}")
+    return render(request, 'mythrifts/index.html', {'user': user, 'listings': sold})
+
+
+@login_required
+def mythrifts_bought(request):
+    user = request.user
+    user_id = user.id
+    bought = Listing.objects.all().filter(buyer=user_id)
+    print(f"user={user}, user id={user_id} listings = {bought}")
+    return render(request, 'mythrifts/index.html', {'user': user, 'listings': bought})
