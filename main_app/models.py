@@ -15,7 +15,7 @@ SIZES = (
 class Listing(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField(max_length=300)
-    price = models.FloatField()
+    price = price = models.DecimalField(max_digits=6, decimal_places=2)
     size = models.CharField(
         max_length=2,
         choices=SIZES,
