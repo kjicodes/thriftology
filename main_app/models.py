@@ -17,7 +17,7 @@ class Listing(models.Model):
     description = models.TextField(max_length=300)
     price = price = models.DecimalField(max_digits=6, decimal_places=2)
     size = models.CharField(
-        max_length=2,
+        max_length=3,
         choices=SIZES,
         default=SIZES[0][0]
     )
