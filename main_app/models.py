@@ -17,6 +17,7 @@ GENDER = (
     ('U', 'UNISEX')
 )
 
+
 class Listing(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField(max_length=300)
@@ -31,7 +32,7 @@ class Listing(models.Model):
         max_length=1,
         choices=GENDER,
         default=GENDER[0][0]
-        )
+    )
     isRental = models.BooleanField(default=False)
     date_sold = models.DateTimeField()
     date_listed = models.DateTimeField(default=timezone.now)
