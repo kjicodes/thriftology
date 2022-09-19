@@ -44,7 +44,7 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('index')
+            return redirect('/listings/')
         else:
             error_message = 'Invalid sign up - try again'
     form = UserCreationForm()
@@ -52,9 +52,8 @@ def signup(request):
     return render(request, 'registration/signup.html', context)
 
 
-@login_required
 def listings_index(request):
-    listings = Listing.objects.all()
+    listings = Listing.objects.all().filter(buyer=None)
     return render(request, 'listings/index.html', {'listings': listings})
 
 

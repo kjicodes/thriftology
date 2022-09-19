@@ -3,6 +3,8 @@ body {
     min-height: 100vh;
     flex-direction: column;
     background-color: #FEF9EA;
+    font-family: 'Quicksand', sans-serif;
+    color: #67595E;
 }
   
 main {
@@ -29,6 +31,7 @@ div.filters-listings {
 div.card {
   width: 250px;
   margin: 5px;
+  background-color: #f0e4dc;
 }
 
 div.filters {
@@ -43,4 +46,12 @@ div.listing-grid {
 
 div.center {
   text-align: center;
+}
+
+a {
+  color: #67595E;
+}
+
+strong {
+  text-decoration: underline;
 }
