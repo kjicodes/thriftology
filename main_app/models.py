@@ -11,6 +11,12 @@ SIZES = (
     ('XL', 'X-Large')
 )
 
+GENDER = (
+    ('F', 'FEMALE'),
+    ('M', 'MALE'),
+    ('U', 'UNISEX')
+)
+
 class Listing(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField(max_length=300)
@@ -21,12 +27,16 @@ class Listing(models.Model):
         default=SIZES[0][0]
     )
     condition = models.IntegerField()
-    gender = models.CharField(max_length=1)
+    gender = models.CharField(
+        max_length=1,
+        choices=GENDER,
+        default=GENDER[0][0]
+        )
     isRental = models.BooleanField(default=False)
-    date_sold = models.DateTimeField()
+    date_sold = models.DateTimeField(null=True, default=None)
     date_listed = models.DateTimeField(default=timezone.now)
     seller = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='seller')
+        User, on_delete=models.CASCADE)
     buyer = models.ForeignKey(
         User, on_delete=models.DO_NOTHING, related_name='buyer', null=True, default=None)
 
