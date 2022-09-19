@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.views.generic.edit import CreateView
 from .models import Listing, Photo
 import uuid
 import boto3
@@ -25,6 +26,15 @@ def about(request):
 #     form.instance.user = self.request.user
 #     return super().form_valid(form)
 # don't forget to use LoginRequiredMixin in class-based views and @login_required in def
+
+
+class CreateListing(LoginRequiredMixin, CreateView):
+  model = Listing
+  fields = ['title', 'description', 'price', 'size', 'condition', 'gender']
+  
+  def form_valid(self, form):
+    form.instance.user = self.request.user
+    return super().form_valid(form)
 
 
 def signup(request):
