@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
 from django.contrib.auth.models import User
 
@@ -6,8 +7,8 @@ from django.contrib.auth.models import User
 SIZES= (
     ('S', 'Small'),
     ('M', 'Medium'),
-    ('L' 'Large'),
-    ('XL' 'X-Large')
+    ('L', 'Large'),
+    ('XL', 'X-Large')
  )
 
 class Listing(models.Model):
@@ -15,9 +16,10 @@ class Listing(models.Model):
     description = models.TextField(max_length=300)
     price = models.FloatField()
     size = models.CharField(
-        max_length=4,
+        max_length=2,
         choices=SIZES,
-        default=SIZES[0][0])
+        default=SIZES[0][0]
+    )
     condition = models.IntegerField()
     gender = models.CharField(max_length=1)
     isRental = models.BooleanField(default=False)
@@ -28,6 +30,11 @@ class Listing(models.Model):
     buyer = models.ForeignKey(
         User, on_delete=models.DO_NOTHING, related_name='buyer', null=True, default=None)
 
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('detail', kwargs={'listing_id': self.id})
 
 class Photo(models.Model):
     url = models.CharField(max_length=300)
