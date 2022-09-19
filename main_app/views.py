@@ -49,6 +49,6 @@ def listings_index(request):
 
 
 @login_required
-def mythrifts_index(request):
+def mythrifts_home(request):
     user = request.user
     return render(request, 'mythrifts/index.html', {'user': user})
