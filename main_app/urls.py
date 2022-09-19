@@ -6,7 +6,7 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('accounts/signup/', views.signup, name='signup'),
     path('listings/', views.listings_index, name="listings_index"),  # Kyle
-    path('mythrifts/', views.mythrifts_index,
+    path('mythrifts/', views.mythrifts_home,
          name="mythrifts_index"),  # Randolph
     # path('listing/<int:listing_id>/',),  # Kateleen
     # path('listing/<int:listing_id>/buy'),
