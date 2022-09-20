@@ -95,4 +95,14 @@ class ListingCreate(LoginRequiredMixin, CreateView):
 
 class ListingDelete(DeleteView, LoginRequiredMixin):
     model = Listing
-    success_url = '/mythrifts/listings/'
+
+    fields = ['title', 'description', 'price', 'size',
+              'condition', 'gender']
+    success_url = '/mythrifts/listings/'  # commit test
+
+class ListingUpdate(UpdateView, LoginRequiredMixin):
+    model = Listing
+    fields = ['title', 'description', 'price', 'size',
+              'condition', 'gender']
+    success_url = '/mythrifts/listings/'  # commit test
+
