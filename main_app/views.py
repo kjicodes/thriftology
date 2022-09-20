@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Listing, Photo  
+from .models import Listing, Photo
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
@@ -25,19 +25,24 @@ def signup(request):
     context = {'form': form, 'error_message': error_message}
     return render(request, 'registration/signup.html', context)
 
+
 def home(request):
     return render(request, 'home.html')
 
+
 def about(request):
     return render(request, 'about.html')
+
 
 def listings_index(request):
     listings = Listing.objects.all().filter(buyer=None)
     return render(request, 'listings/index.html', {'listings': listings})
 
-def listings_detail(request, listing_id): #Kateleen - added 'listings_detail' function
+# Kateleen - added 'listings_detail' function
+def listings_detail(request, listing_id):
     listing = Listing.objects.get(id=listing_id)
-    return render(request, 'listings/detail.html', { 'listing': listing})
+    return render(request, 'listings/detail.html', {'listing': listing})
+
 
 @login_required
 def buy_listing(request, listing_id):
@@ -53,6 +58,7 @@ def mythrifts_home(request):
     user = request.user
     return render(request, 'mythrifts/index.html', {'user': user})
 
+
 @login_required
 def mythrifts_listings(request):
     user = request.user
@@ -60,6 +66,7 @@ def mythrifts_listings(request):
     unsold = Listing.objects.all().filter(seller=user_id).filter(buyer=None)
     # print(f"user={user}, user id={user_id} listings = {unsold}")
     return render(request, 'mythrifts/index.html', {'user': user, 'listings': unsold})
+
 
 @login_required
 def mythrifts_sold(request):
@@ -69,6 +76,7 @@ def mythrifts_sold(request):
     # print(f"user={user}, user id={user_id} listings = {sold}")
     return render(request, 'mythrifts/index.html', {'user': user, 'listings': sold})
 
+
 @login_required
 def mythrifts_bought(request):
     user = request.user
@@ -76,6 +84,7 @@ def mythrifts_bought(request):
     bought = Listing.objects.all().filter(buyer=user_id)
     # print(f"user={user}, user id={user_id} listings = {bought}")
     return render(request, 'mythrifts/index.html', {'user': user, 'listings': bought})
+
 
 @login_required
 def add_photo(request, listing_id):
@@ -93,6 +102,7 @@ def add_photo(request, listing_id):
             print('An error occurred uploading file to S3')
     return redirect('detail', listing_id=listing_id)
 
+
 class ListingCreate(LoginRequiredMixin, CreateView):
     model = Listing
     fields = ['title', 'description', 'price', 'size', 'condition', 'gender', 'isRental', 'date_listed']
@@ -101,8 +111,14 @@ class ListingCreate(LoginRequiredMixin, CreateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
+
 class ListingDelete(DeleteView, LoginRequiredMixin):
     model = Listing
-    success_url = '/mythrifts/listings/'
+    fields = ['title', 'description', 'price', 'size', 'condition', 'gender']
+    success_url = '/mythrifts/listings/'  # commit test
 
 
+class ListingUpdate(UpdateView, LoginRequiredMixin):
+    model = Listing
+    fields = ['title', 'description', 'price', 'size', 'condition', 'gender']
+    success_url = '/mythrifts/listings/'  # commit test
