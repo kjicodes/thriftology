@@ -61,3 +61,11 @@ strong {
 .btn {
   background-color: #67595E;
 }
+/* 'Buy' Button */
+.buy {
+  border: 2px, solid red;
+  border-radius: 10px;
+  background-color: red;
+  color: black;
+  padding: 10px;
+}
