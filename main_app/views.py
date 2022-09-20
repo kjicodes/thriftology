@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, DeleteView
 from .models import Listing, Photo
 import uuid
 import boto3
@@ -69,7 +69,7 @@ def mythrifts_listings(request):
     user = request.user
     user_id = user.id
     unsold = Listing.objects.all().filter(seller=user_id).filter(buyer=None)
-    print(f"user={user}, user id={user_id} listings = {unsold}")
+    # print(f"user={user}, user id={user_id} listings = {unsold}")
     return render(request, 'mythrifts/index.html', {'user': user, 'listings': unsold})
 
 
@@ -78,7 +78,7 @@ def mythrifts_sold(request):
     user = request.user
     user_id = user.id
     sold = Listing.objects.all().filter(seller=user_id).exclude(buyer=None)
-    print(f"user={user}, user id={user_id} listings = {sold}")
+    # print(f"user={user}, user id={user_id} listings = {sold}")
     return render(request, 'mythrifts/index.html', {'user': user, 'listings': sold})
 
 
@@ -87,7 +87,7 @@ def mythrifts_bought(request):
     user = request.user
     user_id = user.id
     bought = Listing.objects.all().filter(buyer=user_id)
-    print(f"user={user}, user id={user_id} listings = {bought}")
+    # print(f"user={user}, user id={user_id} listings = {bought}")
     return render(request, 'mythrifts/index.html', {'user': user, 'listings': bought})
 
 
@@ -108,3 +108,8 @@ def add_photo(request, listing_id):
         except:
             print('An error occurred uploading file to S3')
     return redirect('detail', listing_id=listing_id)
+
+
+class ListingDelete(DeleteView, LoginRequiredMixin):
+    model = Listing
+    success_url = '/mythrifts/listings/'
