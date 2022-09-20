@@ -8,10 +8,14 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+S3_BASE_URL = 'https://s3.ca-central-1.amazonaws.com/'
+BUCKET = 'thriftologysei'
 
 # View Functions:
 
 # Home
+
+
 def home(request):
     return render(request, 'home.html')
 
@@ -88,3 +92,22 @@ def mythrifts_bought(request):
     bought = Listing.objects.all().filter(buyer=user_id)
     print(f"user={user}, user id={user_id} listings = {bought}")
     return render(request, 'mythrifts/index.html', {'user': user, 'listings': bought})
+
+
+@login_required
+def add_photo(request, listing_id):
+    photo_file = request.FILES.get('photo-file', None)
+    if photo_file:
+        s3 = boto3.client('s3')
+        key = uuid.uuid4().hex[:6] + \
+            photo_file.name[photo_file.name.rfind('.'):]
+        try:
+            s3.upload_fileobj(photo_file, BUCKET, key)
+            # build the full url string
+            url = f"{S3_BASE_URL}{BUCKET}/{key}"
+            # we can assign to cat_id or cat (if you have a cat object)
+            photo = Photo(url=url, listing_id=listing_id)
+            photo.save()
+        except:
+            print('An error occurred uploading file to S3')
+    return redirect('detail', listing_id=listing_id)
