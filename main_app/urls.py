@@ -16,10 +16,11 @@ urlpatterns = [
          name='mythrifts_bought'),
     path('listings/<int:listing_id>/add_photo/',
          views.add_photo, name='add_photo'),
+    path('listings/create/', views.ListingCreate.as_view(),
+         name='create'),
 
     # path('listing/<int:listing_id>/',),  # Kateleen
     # path('listing/<int:listing_id>/buy'),
-    path('listings/create/', views.CreateListing.as_view(),
-         name='create_listing'),  # Venessa
-
+    # path('listing/<int:listing_id>/add_photo/'),  # Venessa
+    # # still to be figured out
 ]
