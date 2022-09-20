@@ -25,7 +25,10 @@
       <p>Date Listed: {{ listing.date_listed }}</p>
     <br>
     <div class="card-action">
-      <a href="" class="buy">Buy</a>
+      <form action="{% url 'buy_listing' listing.id %}" method="POST">
+        {% csrf_token %}
+        <input class="buy" type="submit" value="buy">
+      </form>
     </div>
   </div>
 
