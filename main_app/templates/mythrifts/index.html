@@ -22,7 +22,7 @@
             <p>Price: {{ listing.price }}</p>
             {%if listing.buyer == None%}
             <a href="" class="btn">Edit</a>
-            <a href="" class="btn">Delete</a>
+            <a href="{%url 'listing_delete' listing.id %}" class="btn">Delete</a>
             {%endif%}
         </div>
     </div>

@@ -8,7 +8,7 @@ urlpatterns = [
     path('listings/', views.listings_index, name="listings_index"),  # Kyle
     path('mythrifts/', views.mythrifts_home,
          name="mythrifts_index"),
-    path('mythrifts/listings', views.mythrifts_listings,
+    path('mythrifts/listings/', views.mythrifts_listings,
          name='mythrifts_listings'),
     path('mythrifts/sold', views.mythrifts_sold,
          name='mythrifts_sold'),
