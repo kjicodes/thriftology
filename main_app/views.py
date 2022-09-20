@@ -16,8 +16,6 @@ def home(request):
     return render(request, 'home.html')
 
 # About
-
-
 def about(request):
     return render(request, 'about.html')
 
@@ -28,10 +26,9 @@ def about(request):
 # don't forget to use LoginRequiredMixin in class-based views and @login_required in def
 
 
-class CreateListing(LoginRequiredMixin, CreateView):
+class ListingCreate(LoginRequiredMixin, CreateView):
     model = Listing
-    fields = ['title', 'description', 'price', 'size', 'condition', 'gender']
-
+    fields = ['title', 'description', 'price', 'size', 'condition', 'gender', 'isRental', 'date_listed']
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
