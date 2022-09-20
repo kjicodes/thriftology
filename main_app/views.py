@@ -57,7 +57,7 @@ def mythrifts_listings(request):
     user = request.user
     user_id = user.id
     unsold = Listing.objects.all().filter(seller=user_id).filter(buyer=None)
-    print(f"user={user}, user id={user_id} listings = {unsold}")
+    # print(f"user={user}, user id={user_id} listings = {unsold}")
     return render(request, 'mythrifts/index.html', {'user': user, 'listings': unsold})
 
 @login_required
@@ -65,7 +65,7 @@ def mythrifts_sold(request):
     user = request.user
     user_id = user.id
     sold = Listing.objects.all().filter(seller=user_id).exclude(buyer=None)
-    print(f"user={user}, user id={user_id} listings = {sold}")
+    # print(f"user={user}, user id={user_id} listings = {sold}")
     return render(request, 'mythrifts/index.html', {'user': user, 'listings': sold})
 
 @login_required
@@ -73,7 +73,7 @@ def mythrifts_bought(request):
     user = request.user
     user_id = user.id
     bought = Listing.objects.all().filter(buyer=user_id)
-    print(f"user={user}, user id={user_id} listings = {bought}")
+    # print(f"user={user}, user id={user_id} listings = {bought}")
     return render(request, 'mythrifts/index.html', {'user': user, 'listings': bought})
 
 @login_required
@@ -91,3 +91,15 @@ def add_photo(request, listing_id):
         except:
             print('An error occurred uploading file to S3')
     return redirect('detail', listing_id=listing_id)
+
+
+class ListingDelete(DeleteView, LoginRequiredMixin):
+    model = Listing
+    success_url = '/mythrifts/listings/'
+
+
+class ListingUpdate(UpdateView, LoginRequiredMixin):
+    model = Listing
+    fields = ['title', 'description', 'price', 'size',
+              'condition', 'gender']
+    success_url = '/mythrifts/listings/'

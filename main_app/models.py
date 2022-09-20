@@ -3,6 +3,9 @@ from django.urls import reverse
 from django.utils import timezone
 from django.contrib.auth.models import User
 
+# from datetime import date
+
+
 # Create your models here.
 SIZES = (
     ('S', 'Small'),
@@ -21,7 +24,7 @@ GENDER = (
 class Listing(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField(max_length=300)
-    price = price = models.DecimalField(max_digits=6, decimal_places=2)
+    price = models.DecimalField(max_digits=6, decimal_places=2)
     size = models.CharField(
         max_length=3,
         choices=SIZES,
@@ -38,7 +41,9 @@ class Listing(models.Model):
     date_listed = models.DateTimeField(default=timezone.now)
     seller = models.ForeignKey(
         User, on_delete=models.CASCADE)
-    buyer = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='buyer', null=True, default=None, blank=True)
+    buyer = models.ForeignKey(User, on_delete=models.DO_NOTHING,
+                              related_name='buyer', null=True, default=None, blank=True)
+
     def __str__(self):
         return f"{self.title}  - seller:{self.seller} buyer:{self.buyer}"
 
