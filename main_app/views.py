@@ -95,7 +95,7 @@ def add_photo(request, listing_id):
             photo.save()
         except:
             print('An error occurred uploading file to S3')
-    return redirect('detail', listing_id=listing_id)
+    return redirect('listings_detail', listing_id=listing_id)
 
 
 class ListingCreate(LoginRequiredMixin, CreateView):
