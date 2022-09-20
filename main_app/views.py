@@ -11,8 +11,6 @@ import boto3
 S3_BASE_URL = 'https://s3.ca-central-1.amazonaws.com/'
 BUCKET = 'thriftologysei'
 
-# View Functions:
-
 def signup(request):
     error_message = ''
     if request.method == 'POST':
@@ -40,6 +38,15 @@ def listings_index(request):
 def listings_detail(request, listing_id): #Kateleen - added 'listings_detail' function
     listing = Listing.objects.get(id=listing_id)
     return render(request, 'listings/detail.html', { 'listing': listing})
+
+@login_required
+def buy_listing(request, listing_id):
+    user = request.user
+    buyer_id = user.id
+    listings = Listing.objects.get(id=listing_id).buyer
+    Listing.objects.get(id=listing_id).buyer.save()
+    return redirect(request, 'mythrifts/index.html', {'user': user })
+
 
 @login_required
 def mythrifts_home(request):
@@ -89,6 +96,7 @@ def add_photo(request, listing_id):
 class ListingCreate(LoginRequiredMixin, CreateView):
     model = Listing
     fields = ['title', 'description', 'price', 'size', 'condition', 'gender', 'isRental', 'date_listed']
+    
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
@@ -96,3 +104,5 @@ class ListingCreate(LoginRequiredMixin, CreateView):
 class ListingDelete(DeleteView, LoginRequiredMixin):
     model = Listing
     success_url = '/mythrifts/listings/'
+
+
