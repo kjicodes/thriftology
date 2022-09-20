@@ -16,6 +16,8 @@ urlpatterns = [
          name='mythrifts_bought'),
     path('listings/<int:listing_id>/add_photo/',
          views.add_photo, name='add_photo'),
+    path('mythrifts/listings/<int:pk>/delete',
+         views.ListingDelete.as_view(), name='listing_delete'),
     path('listings/create/', views.ListingCreate.as_view(),
          name='create'),
      
