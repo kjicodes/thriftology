@@ -14,6 +14,8 @@ urlpatterns = [
          name='mythrifts_sold'),
     path('mythrifts/bought', views.mythrifts_bought,
          name='mythrifts_bought'),
+    path('listings/<int:listing_id>/add_photo/',
+         views.add_photo, name='add_photo'),
     # path('listing/<int:listing_id>/',),  # Kateleen
     # path('listing/<int:listing_id>/buy'),
     path('listings/create/', views.CreateListing.as_view(),
