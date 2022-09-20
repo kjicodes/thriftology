@@ -8,6 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 import uuid
 import boto3
 
+
 S3_BASE_URL = 'https://s3.ca-central-1.amazonaws.com/'
 BUCKET = 'thriftologysei'
 
