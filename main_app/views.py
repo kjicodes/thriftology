@@ -11,6 +11,8 @@ import boto3
 S3_BASE_URL = 'https://s3.ca-central-1.amazonaws.com/'
 BUCKET = 'thriftologysei'
 
+# View Functions:
+
 def signup(request):
     error_message = ''
     if request.method == 'POST':
@@ -24,14 +26,6 @@ def signup(request):
     form = UserCreationForm()
     context = {'form': form, 'error_message': error_message}
     return render(request, 'registration/signup.html', context)
-
-class CreateListing(LoginRequiredMixin, CreateView):
-    model = Listing
-    fields = ['title', 'description', 'price', 'size', 'condition', 'gender']
-
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)
 
 def home(request):
     return render(request, 'home.html')
@@ -92,14 +86,13 @@ def add_photo(request, listing_id):
             print('An error occurred uploading file to S3')
     return redirect('detail', listing_id=listing_id)
 
+class ListingCreate(LoginRequiredMixin, CreateView):
+    model = Listing
+    fields = ['title', 'description', 'price', 'size', 'condition', 'gender', 'isRental', 'date_listed']
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 class ListingDelete(DeleteView, LoginRequiredMixin):
     model = Listing
-    success_url = '/mythrifts/listings/'
-
-
-class ListingUpdate(UpdateView, LoginRequiredMixin):
-    model = Listing
-    fields = ['title', 'description', 'price', 'size',
-              'condition', 'gender']
     success_url = '/mythrifts/listings/'

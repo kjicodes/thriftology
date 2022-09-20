@@ -16,12 +16,16 @@
     <a href="">
       <div class="card">
         <div class="card-content">
-          <span class="card-title">{{ listing.title }}</span>
-          <img src="../../static/images/no-photo.png" width = 200px>
-          <p>Insert Image Here</p>
-          <p>Gender: {{ listing.gender }}</p>
-          <p>Size: {{ listing.size }}</p>
-          <p>Price: {{ listing.price }}</p>
+            <span class="card-title">{{ listing.title }}</span>
+            <img src="../../static/images/no-photo.png" width = 200px>
+            <p>Insert Image Here</p>
+            <p>Gender: {{ listing.gender }}</p>
+            <p>Size: {{ listing.size }}</p>
+            <p>Price: {{ listing.price }}</p>
+            {%if listing.buyer == None%}
+            <a href="" class="btn">Edit</a>
+            <a href="{%url 'listing_delete' listing.id %}" class="btn">Delete</a>
+            {%endif%}
         </div>
       </div>
     </a>
