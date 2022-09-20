@@ -4,30 +4,30 @@
 <h1>Welcome {{user}}</h1>
 <h2>My Thrifts</h2>
 <div class="filters-listings">
-    <div class="filters">
-<p><a href="{%url 'mythrifts_listings'%}">My listings</a></p>
-<p><a href="{%url 'mythrifts_sold'%}">Sold Items</a></p>
-<p><a href="{%url 'mythrifts_bought'%}">Bought Items</a></p>
-</div>
-<div class ="listing-grid">
-{%for listing in listings%}
-<a href="">
-    <div class="card">
+
+  <div class="filters">
+    <p><a href="{%url 'mythrifts_listings'%}">My listings</a></p>
+    <p><a href="{%url 'mythrifts_sold'%}">Sold Items</a></p>
+    <p><a href="{%url 'mythrifts_bought'%}">Bought Items</a></p>
+  </div>
+
+  <div class ="listing-grid">
+    {% for listing in listings %}
+    <a href="">
+      <div class="card">
         <div class="card-content">
-            <span class="card-title">{{ listing.title }}</span>
-            <img src="../../static/images/no-photo.png" width = 200px>
-            <p>Insert Image Here</p>
-            <p>Gender: {{ listing.gender }}</p>
-            <p>Size: {{ listing.size }}</p>
-            <p>Price: {{ listing.price }}</p>
-            {%if listing.buyer == None%}
-            <a href="{%url 'listing_update' listing.id %}" class="btn">Edit</a>
-            <a href="{%url 'listing_delete' listing.id %}" class="btn">Delete</a>
-            {%endif%}
+          <span class="card-title">{{ listing.title }}</span>
+          <img src="../../static/images/no-photo.png" width = 200px>
+          <p>Insert Image Here</p>
+          <p>Gender: {{ listing.gender }}</p>
+          <p>Size: {{ listing.size }}</p>
+          <p>Price: {{ listing.price }}</p>
         </div>
-    </div>
-  </a>
-  {% endfor %}
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+  
 </div>
-</div>
+
 {% endblock %}
