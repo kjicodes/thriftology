@@ -40,7 +40,9 @@ div.filters {
 }
 
 div.listing-grid {
-  display: inline-flex;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   text-align: center;
 }
 
@@ -54,4 +56,8 @@ a {
 
 strong {
   text-decoration: underline;
+}
+
+.btn {
+  background-color: #67595E;
 }
