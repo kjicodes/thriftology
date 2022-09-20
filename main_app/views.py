@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, DeleteView
 from .models import Listing, Photo
 import uuid
 import boto3
@@ -111,3 +111,8 @@ def add_photo(request, listing_id):
         except:
             print('An error occurred uploading file to S3')
     return redirect('detail', listing_id=listing_id)
+
+
+class ListingDelete(DeleteView):
+    model = Listing
+    success_url = '/mythrifts/listings/'
