@@ -123,4 +123,4 @@ class ListingUpdate(UpdateView, LoginRequiredMixin):
     model = Listing
     fields = ['title', 'description', 'price', 'size',
               'condition', 'gender']
-    success_url = '/mythrifts/listings/'
+    success_url = '/mythrifts/listings/'  # commit test
