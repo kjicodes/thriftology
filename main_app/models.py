@@ -34,13 +34,11 @@ class Listing(models.Model):
         default=GENDER[0][0]
     )
     isRental = models.BooleanField(default=False)
-    date_sold = models.DateTimeField(null=True, default=None)
+    date_sold = models.DateTimeField(null=True, default=None, blank=True)
     date_listed = models.DateTimeField(default=timezone.now)
     seller = models.ForeignKey(
         User, on_delete=models.CASCADE)
-    buyer = models.ForeignKey(
-        User, on_delete=models.DO_NOTHING, related_name='buyer', null=True, default=None)
-
+    buyer = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='buyer', null=True, default=None, blank=True)
     def __str__(self):
         return f"{self.title}  - seller:{self.seller} buyer:{self.buyer}"
 
