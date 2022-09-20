@@ -3,46 +3,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-    <title>Thriftology</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+  <title>Thriftology</title>
 </head>
 <body>
-    <header class="navbar-fixed">
-        <nav>
-            <div class="nav-wrapper">
-                <ul>
-                    <li><a href="/"><img src="{% static 'images/logo-short.png' %}" width=300px></a></li>
-                </ul>
-                <ul class="right">
-                    <li><a href="{% url 'about' %}">About</a></li>
-                    <li><a href="{% url 'listings_index' %}">All Listings</a></li>
-                    {% if user.is_authenticated %}
-                    <li><a href="{%url 'create' %}">Add a Listing</a></li>
-                    <li><a href="{%url 'mythrifts_index'%}">My Thrifts</a></li>
-                    <li><a href="{%url 'logout'%}">Logout</a></li>
-                    {% else %}
-                        <li><a href="{% url 'signup' %}">Sign Up</a></li>
-                        <li><a href="{% url 'login' %}">Log In</a></li>
-                    {% endif %}
-                </ul>
-            </div>
-        </nav>
-    </header>
-
-    <main>
-
-        {% block content %} 
-        {% endblock %}
-    </main>
-    <footer class="page-footer">
-        <div class="right">All Rights Reserved, &copy; 2022 Thriftology &nbsp;</div>
-     </footer>
+  <header class="navbar-fixed">
+    <nav>
+      <div class="nav-wrapper">
+        <ul>
+          <li><a href="/"><img src="{% static 'images/logo-short.png' %}" width=300px></a></li>
+        </ul>
+        <ul class="right">
+          <li><a href="{% url 'about' %}">About</a></li>
+          <li><a href="{% url 'listings_index' %}">All Listings</a></li>
+          {% if user.is_authenticated %}
+            <li><a href="{% url 'create_listing' %} ">Add a Listing</a></li>
+            <li><a href="{%url 'mythrifts_index'%}">My Thrifts</a></li>
+            <li><a href="{%url 'logout'%}">Logout</a></li>
+          {% else %}
+            <li><a href="{% url 'signup' %}">Sign Up</a></li>
+            <li><a href="{% url 'login' %}">Log In</a></li>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <main>
+    {% block content %} 
+    {% endblock %}
+  </main>
+  <footer class="page-footer">
+    <div class="right">All Rights Reserved, &copy; 2022 Thriftology &nbsp;</div>
+  </footer>
 </body>
 </html>

@@ -41,12 +41,11 @@ class Listing(models.Model):
     date_listed = models.DateTimeField(default=timezone.now)
     seller = models.ForeignKey(
         User, on_delete=models.CASCADE)
-    buyer = models.ForeignKey(User, on_delete=models.DO_NOTHING,
-                              related_name='buyer', null=True, default=None, blank=True)
-
+    buyer = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='buyer', null=True, default=None, blank=True)
     def __str__(self):
         return f"{self.title}  - seller:{self.seller} buyer:{self.buyer}"
-
+    def __str__(self):
+        return f"{self.get_size_display()}"
     def get_absolute_url(self):
         return reverse('detail', kwargs={'listing_id': self.id})
 

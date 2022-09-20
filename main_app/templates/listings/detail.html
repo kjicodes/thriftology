@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Listing Details</h1>
+
+<div class="filters-listings">
+
+  <!-- For inserting photos -->
+  <div class="">
+    {% for photo in listing.photo_set.all %}
+      <img class="responsive-img card-panel" src="{{photo.url}}">
+    {% empty %}
+      <div class="card-panel teal-text center-align"><img src="../../static/images/no-photo.png" width = 200px></div>
+    {% endfor %}
+  </div>
+
+  <div class="">
+    <h3>{{ listing.title }}</h3>
+      <p>Description: {{ listing.description }}</p>
+      <p>Price: $ {{ listing.price }}</p>
+      <p>Size: {{ listing.size }}</p>
+      <p>Condition: {{ listing.condition }}/10</p>
+      <p>Gender: {{ listing.gender }}</p>
+      <p>Is a Rental? {{ listing.isRental }}</p>
+      <p>Date Listed: {{ listing.date_listed }}</p>
+    <br>
+    <div class="card-action">
+      <a href="" class="buy">Buy</a>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}
