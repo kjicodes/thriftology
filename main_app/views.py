@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.views.generic.edit import CreateView, DeleteView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from .models import Listing, Photo
 import uuid
 import boto3
@@ -20,6 +20,8 @@ def home(request):
     return render(request, 'home.html')
 
 # About
+
+
 def about(request):
     return render(request, 'about.html')
 
@@ -32,7 +34,9 @@ def about(request):
 
 class ListingCreate(LoginRequiredMixin, CreateView):
     model = Listing
-    fields = ['title', 'description', 'price', 'size', 'condition', 'gender', 'isRental', 'date_listed']
+    fields = ['title', 'description', 'price', 'size',
+              'condition', 'gender', 'isRental', 'date_listed']
+
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
@@ -112,4 +116,11 @@ def add_photo(request, listing_id):
 
 class ListingDelete(DeleteView, LoginRequiredMixin):
     model = Listing
+    success_url = '/mythrifts/listings/'
+
+
+class ListingUpdate(UpdateView, LoginRequiredMixin):
+    model = Listing
+    fields = ['title', 'description', 'price', 'size',
+              'condition', 'gender']
     success_url = '/mythrifts/listings/'
