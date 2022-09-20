@@ -2,14 +2,17 @@
 {% block content %}
 
 <h1>Listings</h1>
+
 <div class="filters-listings">
+
   <div class="filters">
     <p>Filters Placeholder</p>
     <p>Sorts Placeholder</p>
   </div>
+  
   <div class ="listing-grid">
   {% for listing in listings %}
-    <a href="">
+    <a href="{% url 'listings_detail' listing.id %}">
       <div class="card">
           <div class="card-content">
               <span class="card-title">{{ listing.title }}</span>
@@ -22,6 +25,7 @@
     </a>
   {% endfor %}
   </div>
+
 </div>
 
 {% endblock %}
