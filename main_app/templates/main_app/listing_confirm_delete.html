@@ -3,10 +3,12 @@
 
 <h1>Delete Listing?</h1>
 <h4>Are you sure you want to delete{{object.title}}</h4>
+<br>
 <form action="" method="POST">
     {%csrf_token%}
-    <input type="submit" value="Yes - Delete">
-    
+    <input class="btn" type="submit" value="Yes - Delete">
 </form>
+<br>
+<a href="{% url 'mythrifts_listings' %}"><button class="btn">Cancel</button></a>
 
 {%endblock%}

@@ -8,7 +8,7 @@ SIZES = (
     ('S', 'Small'),
     ('M', 'Medium'),
     ('L', 'Large'),
-    ('X', 'X-Large')
+    ('XL', 'X-Large')
 )
 
 GENDER_CHOICES = (
@@ -29,7 +29,7 @@ class Listing(models.Model):
     description = models.TextField(max_length=300)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     size = models.CharField(
-        max_length=1,
+        max_length=2,
         choices=SIZES,
         default=SIZES[0][0]
     )
@@ -51,7 +51,7 @@ class Listing(models.Model):
 
     def __str__(self):
         return f"{self.title}  - seller:{self.seller} buyer:{self.buyer}"
-        
+
     def get_absolute_url(self):
         return reverse('listings_detail', kwargs={'listing_id': self.id})
 
