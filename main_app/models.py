@@ -17,6 +17,12 @@ GENDER_CHOICES = (
     ('U', 'Unisex')
 )
 
+CONDITION_CHOICES = (
+    ('N', 'New'),
+    ('L', 'Like New'),
+    ('G', 'Good'),
+    ('F', 'Fair')
+)
 
 class Listing(models.Model):
     title = models.CharField(max_length=15)
@@ -27,7 +33,11 @@ class Listing(models.Model):
         choices=SIZES,
         default=SIZES[0][0]
     )
-    condition = models.IntegerField()
+    condition = models.CharField(
+        max_length=1,
+        choices=CONDITION_CHOICES,
+        default=CONDITION_CHOICES[0][0]
+    )
     gender = models.CharField(
        max_length=1,
        choices= GENDER_CHOICES,
