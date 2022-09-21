@@ -111,7 +111,7 @@ def add_photo(request, listing_id):
     photo_file = request.FILES.get('photo-file', None)
     if photo_file and Listing.objects.get(id=listing_id).photo_set.count() < 3:
         s3 = boto3.client('s3')
-        key = uuid.uuid4().hex[:6] +
+        key = uuid.uuid4().hex[:6] +\
         photo_file.name[photo_file.name.rfind('.'):]
         try:
             s3.upload_fileobj(photo_file, BUCKET, key)
@@ -136,7 +136,7 @@ def delete_photo(request, listing_id, photo_id):
 class ListingCreate(LoginRequiredMixin, CreateView):
     model = Listing
     fields = ['title', 'description', 'price',
-              'size', 'condition', 'gender', 'date_listed']
+              'size', 'condition', 'gender']
 
     def form_valid(self, form):
         form.instance.seller = self.request.user
