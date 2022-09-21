@@ -5,10 +5,12 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .forms import ListingForm
 import uuid
 import boto3
 import datetime
 from django.utils import timezone
+
 
 S3_BASE_URL = 'https://s3.ca-central-1.amazonaws.com/'
 BUCKET = 'thriftologysei'
@@ -115,12 +117,14 @@ def add_photo(request, listing_id):
 
 class ListingCreate(LoginRequiredMixin, CreateView):
     model = Listing
-    fields = ['title', 'description', 'price', 'size',
-              'condition', 'gender', 'isRental', 'date_listed']
+
+    fields = ['title', 'description', 'price', 'size', 'condition', 'gender', 'date_listed']
+
 
     def form_valid(self, form):
-        form.instance.user = self.request.user
+        form.instance.seller = self.request.user
         return super().form_valid(form)
+      
 
 
 class ListingDelete(DeleteView, LoginRequiredMixin):
