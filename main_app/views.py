@@ -47,8 +47,8 @@ def listings_index(request):
     filter = ListingFilter(request.GET, queryset=listings)
     listings = filter.qs
     context = {
-        'filter':filter,
-        'listings':listings,
+        'filter': filter,
+        'listings': listings,
     }
     return render(request, 'listings/index.html', context)
 
@@ -64,7 +64,6 @@ def buy_listing(request, listing_id):
     user = request.user
     buyer_id = request.user
     l = Listing.objects.get(id=listing_id)
-    print(f" BUYER ID IS: ({request.user}) SELLER ID IS : {l.seller})")
     if request.user != l.seller:
         l.buyer = buyer_id
         l.date_sold = timezone.now()
