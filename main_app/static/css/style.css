@@ -36,7 +36,7 @@ div.card {
 
 div.filters {
   text-align: left;
-  width: 150px
+  width: 150px;
 }
 
 div.listing-grid {
@@ -44,6 +44,7 @@ div.listing-grid {
   flex-direction: row;
   flex-wrap: wrap;
   text-align: center;
+  margin: 0 30px;
 }
 
 div.center {
@@ -91,6 +92,13 @@ div.card-content {
   color: white;
 }
 
+.select-wrapper+label  {
+  position:inherit;
+}
+
+.my-thrifts-filter {
+  width: 200px;
+}
 .pagination {
   display: inline-block;
   text-align: center;

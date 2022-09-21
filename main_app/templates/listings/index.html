@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Listings</h1>
+<h2>All Thifts</h2>
 
 <div class="filters-listings">
 
   <div class="filters">
-    <p>Listing Search</p>
+    <strong>Listing Search</strong>
     <form method="get">
       {% csrf_token %}
       {{ filter.form }}
@@ -49,5 +49,14 @@
 <br/>
 
 </div>
+<script>
+  var selectEl = document.getElementById('id_size');
+  M.FormSelect.init(selectEl);
 
+  var selectGen = document.getElementById('id_gender');
+  M.FormSelect.init(selectGen);
+
+  var selectCon = document.getElementById('id_condition');
+  M.FormSelect.init(selectCon);
+</script>
 {% endblock %}
