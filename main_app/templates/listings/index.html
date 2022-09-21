@@ -11,22 +11,22 @@
   </div>
   
   <div class ="listing-grid">
-  {% for listing in listings %}
-    <a href="{% url 'listings_detail' listing.id %}">
-      <div class="card">
-          <div class="card-content">
-              <span class="card-title">{{ listing.title }}</span>
-              {% if listing.photo %}
-                <img src="{{photo.url.first}}" width = 200px>
-              {% else %}
-                <img src="../../static/images/no-photo.png" width = 200px>
-              {% endif %}
-              <p>Gender: {{ listing.gender }}</p>
-              <p>Size: {{ listing.size }}</p>
-              <p>Price: $ {{ listing.price }}</p>
-          </div>
-      </div>
-    </a>
+    {% for listing in listings %}
+      <a href="{% url 'listings_detail' listing.id %}">
+        <div class="card">
+            <div class="card-content" height = 450px>
+                <span class="card-title">{{ listing.title }}</span>
+                {% if listing.photo_set.count %}
+                  <img class="listing-photo" src="{{listing.photo_set.first.url}}" >
+                {% else %}
+                  <img class="listing-photo" src="../../static/images/no-photo.png" >
+                {% endif %}
+                <p>Gender: {{ listing.gender }}</p>
+                <p>Size: {{ listing.size }}</p>
+                <p>Price: $ {{ listing.price }}</p>
+            </div>
+        </div>
+      </a>
   {% endfor %}
   </div>
 

@@ -61,11 +61,32 @@ strong {
 .btn {
   background-color: #67595E;
 }
-/* 'Buy' Button */
-.buy {
-  border: 2px, solid red;
-  border-radius: 10px;
-  background-color: red;
-  color: black;
-  padding: 10px;
+
+div.card-content {
+  height: 400px;
+}
+
+#my-thift-card {
+  height: 450px;
+}
+
+.listing-photo {
+  max-height:250px;
+  max-width:200px;
+  height:auto;
+  width:auto;
+}
+
+.detail-desc {
+  margin-left: 30px;
+}
+
+.mythifts-links {
+  padding: 12px;
+  margin: 15px;
+}
+
+.mythifts-links:hover {
+  background-color: #67595E;
+  color: white;
 }
