@@ -90,3 +90,13 @@ div.card-content {
   background-color: #67595E;
   color: white;
 }
+
+.pagination {
+  display: inline-block;
+  text-align: center;
+  font-size: 15px;
+}
+
+.pagination a:hover{
+  background-color: #ddd;
+}

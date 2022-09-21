@@ -10,6 +10,7 @@ import uuid
 import boto3
 import datetime
 from django.utils import timezone
+from django.core.paginator import Paginator
 from .filters import ListingFilter
 
 
@@ -46,12 +47,15 @@ def listings_index(request):
     listings = Listing.objects.all().filter(buyer=None).exclude(seller=user_id)
     filter = ListingFilter(request.GET, queryset=listings)
     listings = filter.qs
+    p = Paginator(listings, 4)
+    page =  request.GET.get('page')
+    list = p.get_page(page)
     context = {
         'filter':filter,
         'listings':listings,
+        'list':list,
     }
-    return render(request, 'listings/index.html', context)
-
+    return render(request, 'listings/index.html', context )
 
 def listings_detail(request, listing_id):
     listing = Listing.objects.get(id=listing_id)
@@ -131,9 +135,7 @@ def delete_photo(request, listing_id, photo_id):
 
 class ListingCreate(LoginRequiredMixin, CreateView):
     model = Listing
-
-    fields = ['title', 'description', 'price',
-              'size', 'condition', 'gender', 'date_listed']
+    fields = ['title', 'description', 'price', 'size', 'condition', 'gender', 'date_listed']
 
     def form_valid(self, form):
         form.instance.seller = self.request.user
