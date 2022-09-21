@@ -11,9 +11,11 @@
     {% empty %}
       <div class="card-panel teal-text center-align"><img src="../../static/images/no-photo.png" width = 200px></div>
     {% endfor %}
-    {% if listing.buyer or listing.photo_set.count > 3 %}
+    {% if listing.buyer or listing.photo_set.count > 2 or user != listing.seller%}
     {% else %}
     <form action="{% url 'add_photo' listing.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
+      {{listing.photo_set.count}} of 3 Photos Uploaded
+      <br>
       {% csrf_token %}
       <input type="file" name="photo-file">
       <br><br>
