@@ -48,14 +48,15 @@ def listings_index(request):
     filter = ListingFilter(request.GET, queryset=listings)
     listings = filter.qs
     p = Paginator(listings, 4)
-    page =  request.GET.get('page')
+    page = request.GET.get('page')
     list = p.get_page(page)
     context = {
-        'filter':filter,
-        'listings':listings,
-        'list':list,
+        'filter': filter,
+        'listings': listings,
+        'list': list,
     }
-    return render(request, 'listings/index.html', context )
+    return render(request, 'listings/index.html', context)
+
 
 def listings_detail(request, listing_id):
     listing = Listing.objects.get(id=listing_id)
@@ -68,7 +69,6 @@ def buy_listing(request, listing_id):
     user = request.user
     buyer_id = request.user
     l = Listing.objects.get(id=listing_id)
-    print(f" BUYER ID IS: ({request.user}) SELLER ID IS : {l.seller})")
     if request.user != l.seller:
         l.buyer = buyer_id
         l.date_sold = timezone.now()
@@ -106,13 +106,13 @@ def mythrifts_bought(request):
     return render(request, 'mythrifts/index.html', {'user': user, 'listings': bought})
 
 
-@login_required
+@ login_required
 def add_photo(request, listing_id):
     photo_file = request.FILES.get('photo-file', None)
     if photo_file and Listing.objects.get(id=listing_id).photo_set.count() < 3:
         s3 = boto3.client('s3')
-        key = uuid.uuid4().hex[:6] + \
-            photo_file.name[photo_file.name.rfind('.'):]
+        key = uuid.uuid4().hex[:6] +
+        photo_file.name[photo_file.name.rfind('.'):]
         try:
             s3.upload_fileobj(photo_file, BUCKET, key)
             url = f"{S3_BASE_URL}{BUCKET}/{key}"
@@ -123,7 +123,7 @@ def add_photo(request, listing_id):
     return redirect('listings_detail', listing_id=listing_id)
 
 
-@login_required
+@ login_required
 def delete_photo(request, listing_id, photo_id):
     url = str(Photo.objects.get(id=photo_id).url)
     key = url[-11:]  # filenamewith extension
@@ -135,7 +135,8 @@ def delete_photo(request, listing_id, photo_id):
 
 class ListingCreate(LoginRequiredMixin, CreateView):
     model = Listing
-    fields = ['title', 'description', 'price', 'size', 'condition', 'gender', 'date_listed']
+    fields = ['title', 'description', 'price',
+              'size', 'condition', 'gender', 'date_listed']
 
     def form_valid(self, form):
         form.instance.seller = self.request.user
