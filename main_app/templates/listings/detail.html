@@ -8,6 +8,12 @@
   <div class="">
     {% for photo in listing.photo_set.all %}
       <img class="listing-photo" src="{{photo.url}}" >
+      {% if user == listing.seller and listing.photo_set.count > 0 %}
+      <form action="{% url 'delete_photo' listing.id photo.id %}" method="POST">
+        {%csrf_token%}
+      <input type="submit" class="btn" value="DELETE PHOTO">
+      </form>
+      {%endif%}
     {% empty %}
       <div class="card-panel teal-text center-align"><img src="../../static/images/no-photo.png" width = 200px></div>
     {% endfor %}

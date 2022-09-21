@@ -47,7 +47,6 @@ def listings_index(request):
 def listings_detail(request, listing_id):
     listing = Listing.objects.get(id=listing_id)
     user = request.user
-    print(f"THE USER = {user} | THE LISTING.SELLER= {listing.seller}")
     return render(request, 'listings/detail.html', {'listing': listing, 'user': user})
 
 
@@ -108,6 +107,16 @@ def add_photo(request, listing_id):
             photo.save()
         except:
             print('An error occurred uploading file to S3')
+    return redirect('listings_detail', listing_id=listing_id)
+
+
+@login_required
+def delete_photo(request, listing_id, photo_id):
+    url = str(Photo.objects.get(id=photo_id).url)
+    key = url[-11:]  # filenamewith extension
+    Photo.objects.get(id=photo_id).delete()
+    s3 = boto3.client('s3')
+    s3.delete_object(Bucket=BUCKET, Key=key)
     return redirect('listings_detail', listing_id=listing_id)
 
 
