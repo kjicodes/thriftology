@@ -106,13 +106,13 @@ def mythrifts_bought(request):
     return render(request, 'mythrifts/index.html', {'user': user, 'listings': bought})
 
 
-@login_required
+@ login_required
 def add_photo(request, listing_id):
     photo_file = request.FILES.get('photo-file', None)
     if photo_file and Listing.objects.get(id=listing_id).photo_set.count() < 3:
         s3 = boto3.client('s3')
-        key = uuid.uuid4().hex[:6] + \
-            photo_file.name[photo_file.name.rfind('.'):]
+        key = uuid.uuid4().hex[:6] +
+        photo_file.name[photo_file.name.rfind('.'):]
         try:
             s3.upload_fileobj(photo_file, BUCKET, key)
             url = f"{S3_BASE_URL}{BUCKET}/{key}"
@@ -123,7 +123,7 @@ def add_photo(request, listing_id):
     return redirect('listings_detail', listing_id=listing_id)
 
 
-@login_required
+@ login_required
 def delete_photo(request, listing_id, photo_id):
     url = str(Photo.objects.get(id=photo_id).url)
     key = url[-11:]  # filenamewith extension
