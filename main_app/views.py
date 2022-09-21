@@ -54,9 +54,9 @@ def buy_listing(request, listing_id):
 
     user = request.user
     buyer_id = request.user
-    print(f" BUYER ID IS: ({buyer_id})")
     l = Listing.objects.get(id=listing_id)
-    if request.user.id != l.seller:
+    print(f" BUYER ID IS: ({request.user}) SELLER ID IS : {l.seller})")
+    if request.user != l.seller:
         l.buyer = buyer_id
         l.date_sold = timezone.now()
         l.save()
