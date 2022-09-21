@@ -47,7 +47,7 @@ def listings_index(request):
     listings = Listing.objects.all().filter(buyer=None).exclude(seller=user_id)
     filter = ListingFilter(request.GET, queryset=listings)
     listings = filter.qs
-    p = Paginator(listings, 4)
+    p = Paginator(listings, 10 )
     page = request.GET.get('page')
     list = p.get_page(page)
     context = {
@@ -135,8 +135,7 @@ def delete_photo(request, listing_id, photo_id):
 
 class ListingCreate(LoginRequiredMixin, CreateView):
     model = Listing
-    fields = ['title', 'description', 'price',
-              'size', 'condition', 'gender', 'date_listed']
+    fields = ['title', 'description', 'price', 'size', 'condition', 'gender']
 
     def form_valid(self, form):
         form.instance.seller = self.request.user
