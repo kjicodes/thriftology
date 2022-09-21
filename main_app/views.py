@@ -31,11 +31,14 @@ def signup(request):
     context = {'form': form, 'error_message': error_message}
     return render(request, 'registration/signup.html', context)
 
+
 def home(request):
     return render(request, 'home.html')
 
+
 def about(request):
     return render(request, 'about.html')
+
 
 def listings_index(request):
     user = request.user
@@ -49,9 +52,12 @@ def listings_index(request):
     }
     return render(request, 'listings/index.html', context)
 
+
 def listings_detail(request, listing_id):
     listing = Listing.objects.get(id=listing_id)
-    return render(request, 'listings/detail.html', {'listing': listing})
+    user = request.user
+    return render(request, 'listings/detail.html', {'listing': listing, 'user': user})
+
 
 @login_required
 def buy_listing(request, listing_id):
@@ -65,10 +71,12 @@ def buy_listing(request, listing_id):
         l.save()
     return render(request, 'mythrifts/index.html', {'user': user})
 
+
 @login_required
 def mythrifts_home(request):
     user = request.user
     return render(request, 'mythrifts/index.html', {'user': user})
+
 
 @login_required
 def mythrifts_listings(request):
@@ -77,6 +85,7 @@ def mythrifts_listings(request):
     unsold = Listing.objects.all().filter(seller=user_id).filter(buyer=None)
     return render(request, 'mythrifts/index.html', {'user': user, 'listings': unsold})
 
+
 @login_required
 def mythrifts_sold(request):
     user = request.user
@@ -84,12 +93,14 @@ def mythrifts_sold(request):
     sold = Listing.objects.all().filter(seller=user_id).exclude(buyer=None)
     return render(request, 'mythrifts/index.html', {'user': user, 'listings': sold})
 
+
 @login_required
 def mythrifts_bought(request):
     user = request.user
     user_id = user.id
     bought = Listing.objects.all().filter(buyer=user_id)
     return render(request, 'mythrifts/index.html', {'user': user, 'listings': bought})
+
 
 @login_required
 def add_photo(request, listing_id):
@@ -108,23 +119,34 @@ def add_photo(request, listing_id):
     return redirect('listings_detail', listing_id=listing_id)
 
 
+@login_required
+def delete_photo(request, listing_id, photo_id):
+    url = str(Photo.objects.get(id=photo_id).url)
+    key = url[-11:]  # filenamewith extension
+    Photo.objects.get(id=photo_id).delete()
+    s3 = boto3.client('s3')
+    s3.delete_object(Bucket=BUCKET, Key=key)
+    return redirect('listings_detail', listing_id=listing_id)
+
+
 class ListingCreate(LoginRequiredMixin, CreateView):
     model = Listing
 
-    fields = ['title', 'description', 'price', 'size', 'condition', 'gender', 'date_listed']
-
+    fields = ['title', 'description', 'price',
+              'size', 'condition', 'gender', 'date_listed']
 
     def form_valid(self, form):
         form.instance.seller = self.request.user
         return super().form_valid(form)
-      
+
 
 class ListingDelete(DeleteView, LoginRequiredMixin):
     model = Listing
     fields = ['title', 'description', 'price', 'size', 'condition', 'gender']
-    success_url = '/mythrifts/listings/' 
+    success_url = '/mythrifts/listings/'
+
 
 class ListingUpdate(UpdateView, LoginRequiredMixin):
     model = Listing
     fields = ['title', 'description', 'price', 'size', 'condition', 'gender']
-    success_url = '/mythrifts/listings/' 
+    success_url = '/mythrifts/listings/'
