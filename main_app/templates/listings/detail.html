@@ -13,14 +13,14 @@
       <div class="card-panel teal-text center-align"><img src="../../static/images/no-photo.png" width = 200px></div>
     {% endfor %}
     {% if listing.buyer or listing.photo_set.count > 3 %}
-    {%else%}
+    {% else %}
     <form action="{% url 'add_photo' listing.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
       {% csrf_token %}
       <input type="file" name="photo-file">
       <br><br>
       <input type="submit" class="btn" value="Upload Photo">
     </form>
-    {%endif%}
+    {% endif %}
   </div>
 
   <div class="">
@@ -32,21 +32,19 @@
       <p>Gender: {{ listing.gender }}</p>
       <p>Is a Rental? {{ listing.isRental }}</p>
       <p>Date Listed: {{ listing.date_listed }}</p>
-      {% if listing.date_sold%}
+      {% if listing.date_sold %}
       <p>Date Sold: {{ listing.date_sold }}</p>
-      {%endif%}
+      {% endif %}
     <br>
     <div class="card-action">
-      {% if listing.buyer%}
-      <hr>
-      <p> Sold</p>
-      <hr>
-      {%else%}
+      {% if listing.buyer %}
+      <p>SOLD</p>
+      {% else %}
       <form action="{% url 'buy_listing' listing.id %}" method="POST">
         {% csrf_token %}
         <input class="buy" type="submit" value="buy">
       </form>
-      {%endif%}
+      {% endif %}
     </div>
   </div>
 

@@ -3,10 +3,7 @@ from django.urls import reverse
 from django.utils import timezone
 from django.contrib.auth.models import User
 
-# from datetime import date
 
-
-# Create your models here.
 SIZES = (
     ('S', 'Small'),
     ('M', 'Medium'),
