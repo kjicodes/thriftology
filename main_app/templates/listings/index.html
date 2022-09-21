@@ -6,8 +6,12 @@
 <div class="filters-listings">
 
   <div class="filters">
-    <p>Filters Placeholder</p>
-    <p>Sorts Placeholder</p>
+    <p>Listing Search</p>
+    <form method="get">
+      {% csrf_token %}
+      {{ filter.form }}
+      <input class="btn" type="submit"/>
+    </form>
   </div>
   
   <div class ="listing-grid">
