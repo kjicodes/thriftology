@@ -6,22 +6,25 @@
 <div class="filters-listings">
 
   <div class="filters">
-    <p><a href="{%url 'mythrifts_listings'%}">My listings</a></p>
-    <p><a href="{%url 'mythrifts_sold'%}">Sold Items</a></p>
-    <p><a href="{%url 'mythrifts_bought'%}">Bought Items</a></p>
+    <p><a class="mythifts-links" href="{%url 'mythrifts_listings'%}">My listings</a></p>
+    <p><a class="mythifts-links" href="{%url 'mythrifts_sold'%}">Sold Items</a></p>
+    <p><a class="mythifts-links" href="{%url 'mythrifts_bought'%}">Bought Items</a></p>
   </div>
 
   <div class ="listing-grid">
     {% for listing in listings %}
     <a href="{% url 'listings_detail' listing.id %}">
       <div class="card">
-        <div class="card-content">
+        <div class="card-content" id="my-thift-card">
             <span class="card-title">{{ listing.title }}</span>
-            <img src="../../static/images/no-photo.png" width = 200px>
-            <p>Insert Image Here</p>
+            {% if listing.photo_set.count %}
+              <img class="listing-photo" src="{{listing.photo_set.first.url}}" width = 200px>
+            {% else %}
+              <img class="listing-photo" src="../../static/images/no-photo.png" width = 200px>
+            {% endif %}
             <p>Gender: {{ listing.gender }}</p>
             <p>Size: {{ listing.size }}</p>
-            <p>Price: {{ listing.price }}</p>
+            <p>Price: $ {{ listing.price }}</p>
             {%if listing.buyer == None%}
             <a href="{%url 'listing_update' listing.id %}" class="btn">Edit</a>
             <a href="{%url 'listing_delete' listing.id %}" class="btn">Delete</a>
