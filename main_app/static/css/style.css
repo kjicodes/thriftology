@@ -99,3 +99,12 @@ div.card-content {
 .my-thrifts-filter {
   width: 200px;
 }
+.pagination {
+  display: inline-block;
+  text-align: center;
+  font-size: 15px;
+}
+
+.pagination a:hover{
+  background-color: #ddd;
+}

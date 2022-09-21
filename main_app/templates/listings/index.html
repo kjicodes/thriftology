@@ -15,7 +15,7 @@
   </div>
   
   <div class ="listing-grid">
-    {% for listing in listings %}
+    {% for listing in list %}
       <a href="{% url 'listings_detail' listing.id %}">
         <div class="card">
             <div class="card-content" height = 450px>
@@ -33,6 +33,20 @@
       </a>
   {% endfor %}
   </div>
+</div>
+<br/></br/>
+{{ list }}
+<div class="pagination">
+{% if list.has_previous %}
+  <a href="?page=1">&laquo First</a>
+  <a href="?page={{ list.previous_page_number }}">Previous</a>
+{% endif %}
+
+{% if list.has_next %}
+  <a href="?page={{ list.next_page_number }}">Next</a>
+  <a href="?page={{ list.paginator.num_pages }}">Last &raquo</a>
+{% endif %}
+<br/>
 
 </div>
 <script>
