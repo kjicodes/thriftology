@@ -12,7 +12,15 @@
     {{ form.as_table }}
   </table>
   <input type="submit" value="Submit!" class="btn">
-    });
 </form>
+
+<script>
+  var selectEl = document.getElementById('id_size');
+  M.FormSelect.init(selectEl);
+
+  var selectEl = document.getElementById('id_gender');
+  M.FormSelect.init(selectEl);
+</script>
+
 
 {% endblock %}
