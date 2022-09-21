@@ -13,7 +13,7 @@
 
   <div class ="listing-grid">
     {% for listing in listings %}
-    <a href="">
+    <a href="{% url 'listings_detail' listing.id %}">
       <div class="card">
         <div class="card-content">
             <span class="card-title">{{ listing.title }}</span>

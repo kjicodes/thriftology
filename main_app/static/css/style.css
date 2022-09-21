@@ -40,7 +40,9 @@ div.filters {
 }
 
 div.listing-grid {
-  display: inline-flex;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   text-align: center;
 }
 
@@ -56,6 +58,9 @@ strong {
   text-decoration: underline;
 }
 
+.btn {
+  background-color: #67595E;
+}
 /* 'Buy' Button */
 .buy {
   border: 2px, solid red;

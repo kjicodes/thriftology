@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Listing, Photo
+from .models import Listing, Photo, User
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
@@ -8,10 +8,13 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import ListingForm
 import uuid
 import boto3
+import datetime
+from django.utils import timezone
 
 
 S3_BASE_URL = 'https://s3.ca-central-1.amazonaws.com/'
 BUCKET = 'thriftologysei'
+
 
 def signup(request):
     error_message = ''
@@ -41,6 +44,8 @@ def listings_index(request):
     return render(request, 'listings/index.html', {'listings': listings})
 
 # Kateleen - added 'listings_detail' function
+
+
 def listings_detail(request, listing_id):
     listing = Listing.objects.get(id=listing_id)
     return render(request, 'listings/detail.html', {'listing': listing})
@@ -48,11 +53,16 @@ def listings_detail(request, listing_id):
 
 @login_required
 def buy_listing(request, listing_id):
+
     user = request.user
-    buyer_id = user.id
-    listings = Listing.objects.get(id=listing_id).buyer
-    Listing.objects.get(id=listing_id).buyer.save()
-    return redirect(request, 'mythrifts/index.html', {'user': user })
+    buyer_id = request.user
+    l = Listing.objects.get(id=listing_id)
+    print(f" BUYER ID IS: ({request.user}) SELLER ID IS : {l.seller})")
+    if request.user != l.seller:
+        l.buyer = buyer_id
+        l.date_sold = timezone.now()
+        l.save()
+    return render(request, 'mythrifts/index.html', {'user': user})
 
 
 @login_required
@@ -91,7 +101,7 @@ def mythrifts_bought(request):
 @login_required
 def add_photo(request, listing_id):
     photo_file = request.FILES.get('photo-file', None)
-    if photo_file:
+    if photo_file and Listing.objects.get(id=listing_id).photo_set.count() < 3:
         s3 = boto3.client('s3')
         key = uuid.uuid4().hex[:6] + \
             photo_file.name[photo_file.name.rfind('.'):]
@@ -107,7 +117,9 @@ def add_photo(request, listing_id):
 
 class ListingCreate(LoginRequiredMixin, CreateView):
     model = Listing
+
     fields = ['title', 'description', 'price', 'size', 'condition', 'gender', 'date_listed']
+
 
     def form_valid(self, form):
         form.instance.seller = self.request.user
