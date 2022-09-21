@@ -101,9 +101,7 @@ def add_photo(request, listing_id):
 
 class ListingCreate(LoginRequiredMixin, CreateView):
     model = Listing
-
     fields = ['title', 'description', 'price', 'size', 'condition', 'gender', 'date_listed']
-
 
     def form_valid(self, form):
         form.instance.seller = self.request.user
