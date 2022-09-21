@@ -47,7 +47,7 @@ def listings_index(request):
     listings = Listing.objects.all().filter(buyer=None).exclude(seller=user_id)
     filter = ListingFilter(request.GET, queryset=listings)
     listings = filter.qs
-    p = Paginator(listings, 4)
+    p = Paginator(listings, 10)
     page = request.GET.get('page')
     list = p.get_page(page)
     context = {
