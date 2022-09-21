@@ -14,10 +14,10 @@ SIZES = (
     ('XL', 'X-Large')
 )
 
-GENDER = (
-    ('F', 'FEMALE'),
-    ('M', 'MALE'),
-    ('U', 'UNISEX')
+GENDER_CHOICES = (
+    ('F', 'Female'),
+    ('M', 'Male'),
+    ('U', 'Unisex')
 )
 
 
@@ -32,20 +32,21 @@ class Listing(models.Model):
     )
     condition = models.IntegerField()
     gender = models.CharField(
-        max_length=1,
-        choices=GENDER,
-        default=GENDER[0][0]
-    )
+       max_length=1,
+       choices= GENDER_CHOICES,
+       default= GENDER_CHOICES[2][0]
+       )
+
     isRental = models.BooleanField(default=False)
     date_sold = models.DateTimeField(null=True, default=None, blank=True)
     date_listed = models.DateTimeField(default=timezone.now)
-    seller = models.ForeignKey(
-        User, on_delete=models.CASCADE)
+    seller = models.ForeignKey(User, on_delete=models.CASCADE)
     buyer = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='buyer', null=True, default=None, blank=True)
+    
     def __str__(self):
         return f"{self.title}  - seller:{self.seller} buyer:{self.buyer}"
     def get_absolute_url(self):
-        return reverse('detail', kwargs={'listing_id': self.id})
+        return reverse('listings_detail', kwargs={'listing_id': self.id})
 
 
 class Photo(models.Model):

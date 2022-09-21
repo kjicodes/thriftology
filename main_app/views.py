@@ -8,6 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 import uuid
 import boto3
 
+
 S3_BASE_URL = 'https://s3.ca-central-1.amazonaws.com/'
 BUCKET = 'thriftologysei'
 
@@ -46,11 +47,10 @@ def listings_detail(request, listing_id):
 
 @login_required
 def buy_listing(request, listing_id):
-    user = request.user
-    buyer_id = user.id
-    listings = Listing.objects.get(id=listing_id).buyer
-    Listing.objects.get(id=listing_id).buyer.save()
+    # buyer_id = user.id
+    Listing.objects.get(id=listing_id).add(buyer_id)
     return redirect(request, 'mythrifts/index.html', {'user': user })
+
 
 
 @login_required
