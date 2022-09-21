@@ -10,6 +10,7 @@ import uuid
 import boto3
 import datetime
 from django.utils import timezone
+from .filters import ListingFilter
 
 
 S3_BASE_URL = 'https://s3.ca-central-1.amazonaws.com/'
@@ -37,8 +38,16 @@ def about(request):
     return render(request, 'about.html')
 
 def listings_index(request):
-    listings = Listing.objects.all().filter(buyer=None)
-    return render(request, 'listings/index.html', {'listings': listings})
+    user = request.user
+    user_id = user.id
+    listings = Listing.objects.all().filter(buyer=None).exclude(seller=user_id)
+    filter = ListingFilter(request.GET, queryset=listings)
+    listings = filter.qs
+    context = {
+        'filter':filter,
+        'listings':listings,
+    }
+    return render(request, 'listings/index.html', context)
 
 def listings_detail(request, listing_id):
     listing = Listing.objects.get(id=listing_id)
