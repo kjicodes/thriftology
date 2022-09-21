@@ -34,9 +34,9 @@
     <h3>{{ listing.title }}</h3>
       <p>Description: {{ listing.description }}</p>
       <p>Price: $ {{ listing.price }}</p>
-      <p>Size: {{ listing.size }}</p>
-      <p>Condition: {{ listing.condition }}/10</p>
-      <p>Gender: {{ listing.gender }}</p>
+      <p>Size: {{ listing.get_size_display }}</p>
+      <p>Condition: {{ listing.get_condition_display }}</p>
+      <p>Gender: {{ listing.get_gender_display }}</p>
       <p>Date Listed: {{ listing.date_listed }}</p>
       {% if listing.date_sold %}
       <p>Date Sold: {{ listing.date_sold }}</p>
@@ -44,13 +44,9 @@
     <br>
     <div class="card-action">
       {% if listing.buyer %}
-        <p>SOLD</p>
       {% endif %}
-
       {% if listing.seller == user %}
-        <p>MY LISTING</p>
       {% endif %}
-
       {% if listing.buyer == None and listing.seller != user %}
         <form action="{% url 'buy_listing' listing.id %}" method="POST">
           {% csrf_token %}
