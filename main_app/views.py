@@ -10,7 +10,7 @@ import uuid
 import boto3
 import datetime
 from django.utils import timezone
-
+from django.core.paginator import Paginator
 
 S3_BASE_URL = 'https://s3.ca-central-1.amazonaws.com/'
 BUCKET = 'thriftologysei'
@@ -38,7 +38,11 @@ def about(request):
 
 def listings_index(request):
     listings = Listing.objects.all().filter(buyer=None)
-    return render(request, 'listings/index.html', {'listings': listings})
+    p = Paginator(listings, 4)
+    page =  request.GET.get('page')
+    list = p.get_page(page)
+
+    return render(request, 'listings/index.html', {'listings': listings, 'list':list})
 
 def listings_detail(request, listing_id):
     listing = Listing.objects.get(id=listing_id)
@@ -101,9 +105,7 @@ def add_photo(request, listing_id):
 
 class ListingCreate(LoginRequiredMixin, CreateView):
     model = Listing
-
     fields = ['title', 'description', 'price', 'size', 'condition', 'gender', 'date_listed']
-
 
     def form_valid(self, form):
         form.instance.seller = self.request.user
