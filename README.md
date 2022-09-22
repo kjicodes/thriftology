@@ -1,10 +1,10 @@
 <img src="main_app/static/images/logo-short.png" width="400"></img>
 
-<img src="main_app/static/images/logo-square.png" width="300" height="200"></img>
+<img src="main_app/static/images/logo-square.png" width="300"></img>
 
 # Thriftology
 
-*Thriftology* is a **community-based, used clothing web application** that brings you quality at an affordable price. The name Thriftology comes from the word "thrift" which is defined as a non-wasteful way to manage financial wants and needs.
+*Thriftology* is a **community-based, used clothing web application** that brings you quality at an affordable price. As a user, you are able to both *buy* and *sell* thrifts.<br>The name Thriftology comes from the word "thrift" which is defined as a non-wasteful way to manage financial wants and needs.
 
 <img src="main_app/static/thrifts/thrift-home.png"></img>
 
@@ -12,13 +12,13 @@
 
 ## How it Works:
 
-1. At first glance, the user is able to either **sign up, log in, or navigate** to the "All Thrifts" page. Here, the user can view **all** listings:
+At first glance, the user is able to either **sign up, log in, or navigate** to the "All Thrifts" page. Here, the user can view **all** listings:
 
 
 <img src="main_app/static/thrifts/thrift-all.png"></img>
 
 
-2. When attempting to **buy** a listing, the user will be prompted to **log in**.
+When attempting to **buy** a listing, the user will be prompted to **log in**.
 
 
 <img src="main_app/static/thrifts/thrift-buy.png" width="400"></img>
@@ -26,20 +26,20 @@
 <img src="main_app/static/thrifts/thrift-login.png" width="600"></img>
 
 
-3. After logging in, the app renders the "My Thrifts" page. Here, the user is able to view *their* **listed, sold, and bought thrifts**. The user is also able to **delete** a listing, or make **edits** to each listed thrift when necessary (ie. change description, upload a *new* photo, etc.):
-
-
-<img src="main_app/static/thrifts/thrift-mythrifts.png" width="600"></img>
-
-<img src="main_app/static/thrifts/thrift-mydetails.png" width="400"></img>
-
-
-4. The user can **add a new thrift** as shown below. After clicking the "Submit!" button, the page renders the **details** page, where the user can upload photos of the item (up to 3):
+When logged in, the user can choose to **add a new thrift** as shown below. After clicking the "Submit!" button, the page renders the **details** page, where the user can upload photos of the item (up to 3 at a time):
 
 
 <img src="main_app/static/thrifts/thrift-add.png" width="600"></img>
 
 <img src="main_app/static/thrifts/thrift-uploadphoto.png" width="400"></img>
+
+
+After uploading a photo(s), the user is able to view *their* **listed, sold, and bought thrifts**. The user is also able to make **edits** to each listed thrift when necessary (ie. change description, upload a new photo, etc.), or **delete** a listed thrift.
+
+
+<img src="main_app/static/thrifts/thrift-mythrifts.png" width="600"></img>
+
+<img src="main_app/static/thrifts/thrift-mydetails.png" width="400"></img>
 
 
 
