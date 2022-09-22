@@ -10,6 +10,7 @@
     <h4><a class="mythifts-links" href="{%url 'mythrifts_sold'%}">My Sold Items</a></h4>
     <h4><a class="mythifts-links" href="{%url 'mythrifts_bought'%}">My Bought Items</a></h4>
   </div>
+
   <div class ="listing-grid">
     {% for listing in listings %}
     <a href="{% url 'listings_detail' listing.id %}">
