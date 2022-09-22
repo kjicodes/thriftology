@@ -1,16 +1,15 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h3>Welcome {{user}}</h3>
-<h2>My Thrifts</h2>
+<h2>{{user}}'s {{page}} Page</h2>
 <div class="filters-listings">
 
-  <div class="my-thifts-filter">
-    <p><a class="mythifts-links" href="{%url 'mythrifts_listings'%}">My Listings</a></p>
-    <p><a class="mythifts-links" href="{%url 'mythrifts_sold'%}">My Sold Items</a></p>
-    <p><a class="mythifts-links" href="{%url 'mythrifts_bought'%}">My Bought Items</a></p>
+  <div class="my-thrifts-filter">
+    <h3>Select:</h3>
+    <h4><a class="mythifts-links" href="{%url 'mythrifts_listings'%}">My Listings</a></h4>
+    <h4><a class="mythifts-links" href="{%url 'mythrifts_sold'%}">My Sold Items</a></h4>
+    <h4><a class="mythifts-links" href="{%url 'mythrifts_bought'%}">My Bought Items</a></h4>
   </div>
-
   <div class ="listing-grid">
     {% for listing in listings %}
     <a href="{% url 'listings_detail' listing.id %}">
@@ -36,5 +35,5 @@
   </div>
   
 </div>
-
+<script defer src="../../static/js/mythifts.js"></script>
 {% endblock %}
