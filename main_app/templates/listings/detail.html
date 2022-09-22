@@ -7,15 +7,15 @@
 
   <div class="">
     {% for photo in listing.photo_set.all %}
-      <img class="listing-photo" src="{{photo.url}}" >
-      {% if user == listing.seller and listing.photo_set.count > 0 %}
-      <form action="{% url 'delete_photo' listing.id photo.id %}" method="POST">
-        {%csrf_token%}
+    <img class="listing-photo" src="{{photo.url}}">
+    {% if user == listing.seller and listing.photo_set.count > 0 %}
+    <form action="{% url 'delete_photo' listing.id photo.id %}" method="POST">
+      {%csrf_token%}
       <input type="submit" class="btn" value="DELETE PHOTO">
-      </form>
-      {%endif%}
+    </form>
+    {%endif%}
     {% empty %}
-      <div class="card-panel teal-text center-align"><img src="../../static/images/no-photo.png" width = 200px></div>
+    <div class="card-panel teal-text center-align"><img src="../../static/images/no-photo.png" width=200px></div>
     {% endfor %}
     {% if listing.buyer or listing.photo_set.count > 2 or user != listing.seller%}
     {% else %}
@@ -32,15 +32,15 @@
 
   <div class="detail-desc">
     <h3>{{ listing.title }}</h3>
-      <p>Description: {{ listing.description }}</p>
-      <p>Price: $ {{ listing.price }}</p>
-      <p>Size: {{ listing.get_size_display }}</p>
-      <p>Condition: {{ listing.get_condition_display }}</p>
-      <p>Gender: {{ listing.get_gender_display }}</p>
-      <p>Date Listed: {{ listing.date_listed }}</p>
-      {% if listing.date_sold %}
-      <p>Date Sold: {{ listing.date_sold }}</p>
-      {% endif %}
+    <p>Description: {{ listing.description }}</p>
+    <p>Price: $ {{ listing.price }}</p>
+    <p>Size: {{ listing.get_size_display }}</p>
+    <p>Condition: {{ listing.get_condition_display }}</p>
+    <p>Gender: {{ listing.get_gender_display }}</p>
+    <p>Date Listed: {{ listing.date_listed }}</p>
+    {% if listing.date_sold %}
+    <p>Date Sold: {{ listing.date_sold }}</p>
+    {% endif %}
     <br>
     <div class="card-action">
       {% if listing.buyer %}
@@ -48,12 +48,13 @@
       {% if listing.seller == user %}
       {% endif %}
       {% if listing.buyer == None and listing.seller != user %}
-        <form action="{% url 'buy_listing' listing.id %}" method="POST">
-          {% csrf_token %}
-          <input class="btn" type="submit" value="BUY">
-        </form>
+      <form action="{% url 'buy_listing' listing.id %}" method="POST">
+        {% csrf_token %}
+        <input class="btn" type="submit" value="BUY">
+      </form>
+
       {% endif %}
-    
+
     </div>
   </div>
 

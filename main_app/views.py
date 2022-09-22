@@ -25,7 +25,10 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
+            stripe.Account.create(type="express")
+
             return redirect('/listings/')
+
         else:
             error_message = 'Invalid sign up - try again'
     form = UserCreationForm()

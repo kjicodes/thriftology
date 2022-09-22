@@ -26,3 +26,4 @@ toml==0.10.2
 urllib3==1.26.12
 webencodings==0.5.1
 whitenoise==6.2.0
+stripe>=4.0.2
