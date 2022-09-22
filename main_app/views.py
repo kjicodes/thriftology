@@ -87,26 +87,29 @@ def mythrifts_home(request):
 
 @login_required
 def mythrifts_listings(request):
+    page = "Active Listings"
     user = request.user
     user_id = user.id
     unsold = Listing.objects.all().filter(seller=user_id).filter(buyer=None)
-    return render(request, 'mythrifts/index.html', {'user': user, 'listings': unsold})
+    return render(request, 'mythrifts/index.html', {'user': user, 'listings': unsold, 'page': page})
 
 
 @login_required
 def mythrifts_sold(request):
+    page = "Sold Items"
     user = request.user
     user_id = user.id
     sold = Listing.objects.all().filter(seller=user_id).exclude(buyer=None)
-    return render(request, 'mythrifts/index.html', {'user': user, 'listings': sold})
+    return render(request, 'mythrifts/index.html', {'user': user, 'listings': sold, 'page': page})
 
 
 @login_required
 def mythrifts_bought(request):
+    page = "Bought Items"
     user = request.user
     user_id = user.id
     bought = Listing.objects.all().filter(buyer=user_id)
-    return render(request, 'mythrifts/index.html', {'user': user, 'listings': bought})
+    return render(request, 'mythrifts/index.html', {'user': user, 'listings': bought, 'page': page})
 
 
 @ login_required
@@ -138,8 +141,7 @@ def delete_photo(request, listing_id, photo_id):
 
 class ListingCreate(LoginRequiredMixin, CreateView):
     model = Listing
-    fields = ['title', 'description', 'price',
-              'size', 'condition', 'gender']
+    fields = ['title', 'description', 'price', 'size', 'condition', 'gender']
 
     def form_valid(self, form):
         form.instance.seller = self.request.user

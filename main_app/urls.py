@@ -24,5 +24,4 @@ urlpatterns = [
          views.ListingUpdate.as_view(), name='listing_update'),
     path('listings/<int:listing_id>/photo/<int:photo_id>',
          views.delete_photo, name='delete_photo'),
-
 ]

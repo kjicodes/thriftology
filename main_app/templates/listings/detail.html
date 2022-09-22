@@ -42,6 +42,7 @@
     <p>Date Sold: {{ listing.date_sold }}</p>
     {% endif %}
     <br>
+
     <div class="card-action">
       {% if listing.buyer %}
       {% endif %}
@@ -50,12 +51,11 @@
       {% if listing.buyer == None and listing.seller != user %}
       <form action="{% url 'buy_listing' listing.id %}" method="POST">
         {% csrf_token %}
-        <input class="btn" type="submit" value="BUY">
+        <input class="btn" type="submit" value="PURCHASE NOW">
       </form>
-
       {% endif %}
-
     </div>
+
   </div>
 
 </div>

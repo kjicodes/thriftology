@@ -36,7 +36,9 @@ div.card {
 
 div.filters {
   text-align: left;
-  width: 150px;
+  width: 160px;
+  border-right: 4px solid #67595E;
+  padding-right: 15px;
 }
 
 div.listing-grid {
@@ -92,13 +94,22 @@ div.card-content {
   color: white;
 }
 
+a.active {
+  background-color: #67595E;
+  color: white;
+}
+
 .select-wrapper+label  {
   position:inherit;
 }
 
 .my-thrifts-filter {
-  width: 200px;
+  width: 220px;
+  display: inline;
+  border-right: 4px solid #67595E;
+  padding-right: 5px;
 }
+
 .pagination {
   display: inline-block;
   text-align: center;
@@ -107,4 +118,20 @@ div.card-content {
 
 .pagination a:hover{
   background-color: #ddd;
+}
+
+h2 {
+  margin: 10px;
+  font-weight: 500;
+  border-bottom: 4px solid #67595E;
+}
+
+h4 {
+  font-size: larger;
+}
+
+#pages {
+  margin-left: 185px;
+  position: absolute;
+  bottom: 10px;
 }
