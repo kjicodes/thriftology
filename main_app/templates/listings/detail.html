@@ -38,8 +38,12 @@
     <p>Condition: {{ listing.get_condition_display }}</p>
     <p>Gender: {{ listing.get_gender_display }}</p>
     <p>Date Listed: {{ listing.date_listed }}</p>
+    <p>Seller: {{ listing.seller }}</p>
     {% if listing.date_sold %}
     <p>Date Sold: {{ listing.date_sold }}</p>
+    {% endif %}
+    {% if listing.buyer %}
+    <p>Buyer: {{ listing.buyer }}</p>
     {% endif %}
     <br>
 
