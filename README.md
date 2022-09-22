@@ -1,6 +1,6 @@
 <img src="main_app/static/images/logo-short.png" width="400"></img>
 
-<img src="main_app/static/images/logo-square.png" width="300"></img>
+<img src="main_app/static/images/logo-square.png" width="200" height="200"></img>
 
 # Thriftology
 

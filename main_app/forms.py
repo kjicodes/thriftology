@@ -3,7 +3,7 @@ from .models import Listing
 
 
 class ListingForm(ModelForm):
-  class Meta:
-    model = Listing
-    fields = ['title', 'description', 'price', 'size', 'condition', 'gender', 'date_listed']
+    class Meta:
+        model = Listing
+        fields = ['title', 'description', 'price', 'size', 'condition', 'gender', 'date_listed']
 
