@@ -1,6 +1,6 @@
 import django_filters
 from .models import Listing
-from django_filters import CharFilter, ChoiceFilter
+from django_filters import CharFilter, ChoiceFilter, RangeFilter
 
 SIZES = (
     ('S', 'Small'),
@@ -28,6 +28,7 @@ class ListingFilter(django_filters.FilterSet):
     size = ChoiceFilter(choices = SIZES)
     gender = ChoiceFilter(choices = GENDER_CHOICES)
     condition = ChoiceFilter(choices = CONDITION_CHOICES)
+    price = RangeFilter()
 
 
     class Meta:
