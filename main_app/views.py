@@ -72,7 +72,7 @@ def buy_listing(request, listing_id):
     user_id = user.id
     l = Listing.objects.get(id=listing_id)
     if request.user != l.seller:
-        bought = Listing.objects.all().filter(buyer=user)
+        bought = Listing.objects.all().filter(buyer=user).order_by('-date_sold')
         page = "Bought Items"
         l.buyer = buyer_id
         l.date_sold = timezone.now()
