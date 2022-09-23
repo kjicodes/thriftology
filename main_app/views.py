@@ -25,8 +25,6 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            stripe.Account.create(type="express")
-
             return redirect('/listings/')
 
         else:
@@ -71,12 +69,15 @@ def listings_detail(request, listing_id):
 def buy_listing(request, listing_id):
     user = request.user
     buyer_id = request.user
+    user_id = user.id
     l = Listing.objects.get(id=listing_id)
     if request.user != l.seller:
+        bought = Listing.objects.all().filter(buyer=user)
+        page = "Bought Items"
         l.buyer = buyer_id
         l.date_sold = timezone.now()
         l.save()
-    return render(request, 'mythrifts/index.html', {'user': user})
+    return render(request, 'mythrifts/index.html', {'user': user, 'listings': bought, 'page': page})
 
 
 @login_required
@@ -108,7 +109,7 @@ def mythrifts_bought(request):
     page = "Bought Items"
     user = request.user
     user_id = user.id
-    bought = Listing.objects.all().filter(buyer=user_id)
+    bought = Listing.objects.all().filter(buyer=user_id).order_by('-date_sold')
     return render(request, 'mythrifts/index.html', {'user': user, 'listings': bought, 'page': page})
 
 
