@@ -1,0 +1,1 @@
+web: gunicorn thriftology.wsgi

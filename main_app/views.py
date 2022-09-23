@@ -26,6 +26,7 @@ def signup(request):
             user = form.save()
             login(request, user)
             return redirect('/listings/')
+
         else:
             error_message = 'Invalid sign up - try again'
     form = UserCreationForm()
@@ -47,7 +48,7 @@ def listings_index(request):
     listings = Listing.objects.all().filter(buyer=None).exclude(seller=user_id)
     filter = ListingFilter(request.GET, queryset=listings)
     listings = filter.qs
-    p = Paginator(listings, 10 )
+    p = Paginator(listings, 10)
     page = request.GET.get('page')
     list = p.get_page(page)
     context = {
@@ -68,12 +69,15 @@ def listings_detail(request, listing_id):
 def buy_listing(request, listing_id):
     user = request.user
     buyer_id = request.user
+    user_id = user.id
     l = Listing.objects.get(id=listing_id)
     if request.user != l.seller:
+        bought = Listing.objects.all().filter(buyer=user)
+        page = "Bought Items"
         l.buyer = buyer_id
         l.date_sold = timezone.now()
         l.save()
-    return render(request, 'mythrifts/index.html', {'user': user})
+    return render(request, 'mythrifts/index.html', {'user': user, 'listings': bought, 'page': page})
 
 
 @login_required
@@ -105,7 +109,7 @@ def mythrifts_bought(request):
     page = "Bought Items"
     user = request.user
     user_id = user.id
-    bought = Listing.objects.all().filter(buyer=user_id)
+    bought = Listing.objects.all().filter(buyer=user_id).order_by('-date_sold')
     return render(request, 'mythrifts/index.html', {'user': user, 'listings': bought, 'page': page})
 
 
@@ -115,7 +119,7 @@ def add_photo(request, listing_id):
     if photo_file and Listing.objects.get(id=listing_id).photo_set.count() < 3:
         s3 = boto3.client('s3')
         key = uuid.uuid4().hex[:6] +\
-        photo_file.name[photo_file.name.rfind('.'):]
+            photo_file.name[photo_file.name.rfind('.'):]
         try:
             s3.upload_fileobj(photo_file, BUCKET, key)
             url = f"{S3_BASE_URL}{BUCKET}/{key}"
